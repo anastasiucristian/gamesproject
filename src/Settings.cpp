@@ -1,43 +1,45 @@
 #include "Menu.h"
-#include <SFML/Graphics.hpp>
+#include "Settings.h"
 
 using namespace sf;
+Settings& Settings::getInstance() { static Settings instance; return instance; }
 
-Settings::Settings(float width, float height){
-
-  sf::Texture texture;
-  if(!texture.loadFromFile("C:\\Uni\\Games\\gamesproject\\res\\settings_one.png")){
-    //handle error
-  }else{
-  menu[0].loadFromFile("C:\\Uni\\Games\\gamesproject\\res\\settings_one.png");
-  menu[1].loadFromFile("C:\\Uni\\Games\\gamesproject\\res\\settings_one.png");
-  menu[2].loadFromFile("C:\\Uni\\Games\\gamesproject\\res\\settings_one.png");
-
-  selectedItemIndex = 0;
-}
-};
-
-Settings::~Settings(){
-
+Settings::~Settings() {}
+Settings::Settings() 
+{
+	initializeFont();
+	initializeText();
 }
 
-void Settings::draw(RenderWindow &window){
-  sf::Sprite sprite;
-  for(int i = 0 ; i < 3 ; i++){
-    sprite.setTexture(menu[i]);
-    sprite.setPosition(1920/4, 1080/(6-i));
-    window.draw(sprite);
-  }
-}
-
-void Settings::moveUp(){
+void Settings::initializeFont()
+{
+	sf::Font font;
+	if (!font.loadFromFile(MENU_FONT))
+	{
+		printf("Failed to load font\n");
+		
+	}
+	else
+	{
+		printf("Font loaded successfully\n");
+	}
+	this->font = font;
 
 }
 
-void Settings::moveDown(){
-
+void Settings::initializeText()
+{
+	text.setFont(this->font);
+	text.setPosition(50, 50);
+	text.setFillColor(MENU_FONT_COLOUR);
+	text.setCharacterSize(MENU_CHAR_SIZE);
+	//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 }
 
-void Settings::settingsSelect(RenderWindow &window){
 
+sf::Text Settings::getText(std::string stringText)
+{
+	text.setString(stringText);
+	return text;	
 }
+
