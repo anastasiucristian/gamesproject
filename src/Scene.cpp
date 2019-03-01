@@ -1,22 +1,28 @@
 #include "Scene.h"
 #include "Menu.h"
+#include "Handler.h"
 
-//==========================
-//Scene: Parent Class. Defines a set of sprites currently on screen.
+/*
+The Function Declarations of the Following Classes are here:
+
+1. Scene
+
+2. Scene Menu
+	- Load() : Set the Main Menu setup (Drawing of Buttons and Text)
+
+*/
+
+//Scene: Defines a set of sprites currently on screen.
 
 Scene::Scene() {}
 
-void Scene::Load(sf::RenderWindow &window)
-{
-	window.clear();
+void Scene::Update(sf::RenderWindow &window){}
 
-}
+void Scene::Load(sf::RenderWindow &window) { window.clear(); }
 
 void Scene::Render(sf::RenderWindow &window)
 {
 	window.draw(background);
-
-	
 }
 
 void Scene::setBackground(sf::Texture &texture)
@@ -24,19 +30,22 @@ void Scene::setBackground(sf::Texture &texture)
 	this->background.setTexture(texture);
 }
 
-
 //==========================
 //Scene_Menu : Scene
 
-//Defines the 'Main Menu' scene
+//Defines the 'Main Menu' scene (Buttons, Windows (Incomplete), etc.)
 
-Scene_Menu::Scene_Menu() : Scene() {}
+Scene_Menu::Scene_Menu() : Scene() 
+{
+	MainMenuHandler * handler = new MainMenuHandler(*this);
+	this->handler = handler;
+}
 
 Scene_Menu::~Scene_Menu() {  }
 
 void Scene_Menu::Render(sf::RenderWindow &window)
 {
-	//Render the background
+	//Render the background from the Base Scene class
 	Scene::Render(window);
 
 	for each (MenuButton* button in buttons)
@@ -70,17 +79,20 @@ void Scene_Menu::Load(sf::RenderWindow &window)
 	MenuButton* playButton = new MenuButton(*button_texture, text_Play);
 	MenuButton* settingsButton = new MenuButton(*button_texture, text_Settings);
 
-
-	drawButton(playButton);
-	drawButton(settingsButton);	
+	//Make sure to draw the Buttons. Position is automatically set with autoDraw function.
+	autoDrawButton(playButton);
+	autoDrawButton(settingsButton);	
 }
 
 void Scene_Menu::Update(sf::RenderWindow &window)
 {
-	//handler->Update(window);
+	this->handler->Update(window);
 }
 
-void Scene_Menu::drawButton(MenuButton *button)
+std::vector<MenuButton*> Scene_Menu::getButtons() {return buttons; }
+
+//Automatically set the position of Menu Buttons
+void Scene_Menu::autoDrawButton(MenuButton *button)
 {
 	
 	float x = MENU_POSITION.x;
@@ -89,22 +101,31 @@ void Scene_Menu::drawButton(MenuButton *button)
 	float buttonHeight = button->baseSprite.getGlobalBounds().height;
 	float buttonWidth = button->baseSprite.getGlobalBounds().width;
 
-	
-
-	//Set position depending on which button is inserted
+	//Add an interval depending on which button is inserted
 	for (unsigned int i = 0; i < buttons.size(); i++)
 	{
 		y += MENU_INTERVAL + buttonHeight;
 		
 	}
+	//Calculate the Central Position of the Button to place Text
 	sf::Vector2f buttonCentre = { x + (buttonWidth / 2) , y + (buttonHeight / 2) };
 
 	button->baseSprite.setPosition({ x,y });
 
+	//Set the Text Position (Incomplete - Try for a better Version)
 	button->text.setPosition({buttonCentre.x - (button->text.getGlobalBounds().width)/2 , buttonCentre.y-(button->text.getGlobalBounds().height) /2});
+	
+	//Add the button to the Vector array
 	buttons.push_back(button);
 
 }
+
+void Scene_Menu::drawSprite(sf::Sprite sprite)
+{
+	//TBC
+}
+
+
 
 
 

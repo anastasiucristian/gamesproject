@@ -17,7 +17,6 @@ void Settings::initializeFont()
 	if (!font.loadFromFile(MENU_FONT))
 	{
 		printf("Failed to load font\n");
-		
 	}
 	else
 	{

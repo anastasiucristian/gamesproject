@@ -28,6 +28,8 @@ void Update(RenderWindow &window) {
 		if (event.type == Event::Closed) {window.close(); return;}
 
 	}
+
+	scene_Menu.Update(window);
 }
 void Render(RenderWindow &window){
 

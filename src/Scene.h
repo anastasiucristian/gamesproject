@@ -4,11 +4,13 @@
 #include <vector>
 
 
+
 class Scene {
 public:
 	Scene();
 	int id;
 	int name;
+	void Update(sf::RenderWindow &window);
 	void Load(sf::RenderWindow &window);
 	void Render(sf::RenderWindow &window);
 	void setBackground(sf::Texture &texture);
@@ -22,7 +24,10 @@ private:
 	sf::Sprite background;
 };
 
+#ifndef Scene_Menu_H
+#define Scene_Menu_H
 
+class MainMenuHandler;
 class Scene_Menu : public Scene
 {
 public:
@@ -31,12 +36,19 @@ public:
 	void Update(sf::RenderWindow &window);
 	void Load(sf::RenderWindow &window);
 	void Render(sf::RenderWindow &window);
+	std::vector<MenuButton*> getButtons();
+
 private:
-	
-	void drawButton(MenuButton * button);
+	MainMenuHandler * handler;
+	void autoDrawButton(MenuButton * button);
 	std::vector<MenuButton*> buttons;
 
-
+protected:
+	void drawSprite(sf::Sprite sprite);
 };
+
+#endif
+
+
 
 
