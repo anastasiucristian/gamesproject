@@ -15,14 +15,11 @@ Scene_Menu scene_Menu;
 
 void Load(RenderWindow &window){
 
-
 	scene_Menu.Load(window);
-
-
 }
 
 void Update(RenderWindow &window) {
-	
+
 	Event event;
 	while (window.pollEvent(event)) {
 		if (event.type == Event::Closed) {window.close(); return;}
@@ -32,11 +29,9 @@ void Update(RenderWindow &window) {
 	scene_Menu.Update(window);
 }
 void Render(RenderWindow &window){
-
+	window.clear();
 	scene_Menu.Render(window);
 
-
-	
 }
 
 int main(){
@@ -44,11 +39,13 @@ int main(){
   RenderWindow window(VideoMode(gameWidth/2,gameHeight/2), "Squabble");
 
   Load(window);
+  
   while (window.isOpen()) {
-	window.clear();
-    Update(window);
-    Render(window);
-    window.display();
+	Update(window);
+	Render(window);
+	window.display();
+	
+
   }
 
   return 0;

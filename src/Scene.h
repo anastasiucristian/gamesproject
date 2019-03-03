@@ -3,8 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-
-
+const sf::Vector2f SCROLLING = {-0.1f,0.0f};
 class Scene {
 public:
 	Scene();
@@ -13,17 +12,23 @@ public:
 	void Update(sf::RenderWindow &window);
 	void Load(sf::RenderWindow &window);
 	void Render(sf::RenderWindow &window);
-	void setBackground(sf::Texture &texture);
 
+	void setBackground(sf::Texture &texture);
+	void setBackgroundScrolling(bool boolean) { scrollingEnabled = (!scrollingEnabled == boolean) ? boolean : scrollingEnabled; }
+	void setScrollingVector(sf::Vector2f v) { scrollingVector = v; }
 
 protected:
 	std::vector <sf::Sprite *> sprites;
 	std::vector <sf::Texture *> textures;
+	sf::Sprite background;
+	sf::Sprite backgroundScrollingBuffer;
 
 private:
-	sf::Sprite background;
-};
 
+	sf::Vector2f scrollingVector = SCROLLING;
+	bool scrollingEnabled = false;
+	void scrollBackground(sf::RenderWindow &window);
+};
 #ifndef Scene_Menu_H
 #define Scene_Menu_H
 
@@ -40,11 +45,11 @@ public:
 
 private:
 	MainMenuHandler * handler;
-	void autoDrawButton(MenuButton * button);
 	std::vector<MenuButton*> buttons;
 
-protected:
-	void drawSprite(sf::Sprite sprite);
+	void autoDrawButton(MenuButton * button);
+
+
 };
 
 #endif

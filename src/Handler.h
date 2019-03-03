@@ -16,7 +16,8 @@ public:
 private:
 
 	Scene_Menu * scene_menu;
-	void handleButtonHover(sf::RenderWindow &window);
+	void handleButtonHover(sf::Vector2f mousePos , sf::RenderWindow &window);
+	void handleButtonClick(sf::Vector2f mousePos , sf::RenderWindow &window);
 };
 
 #endif

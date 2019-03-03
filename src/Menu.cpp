@@ -8,7 +8,14 @@ using namespace sf;
 
 MenuButton::MenuButton() : InteractiveSprite() {}
 
-MenuButton::~MenuButton() {}
+MenuButton::~MenuButton() 
+{
+	/*
+	delete &baseSprite;
+	delete &baseTexture;
+	delete &text;
+	*/
+}
 
 MenuButton::MenuButton(sf::Texture texture, sf::Text text) : InteractiveSprite()
 {
@@ -27,29 +34,46 @@ void MenuButton::onHover()
 //Customizable: What happens when Hovering off buttons
 void MenuButton::offHover()
 {
+	
 	//this->baseSprite.setScale({ 1,1 });
 	this->text.setColor(sf::Color::Black);
 }
 
+//Customizable: What happens when Hovering off buttons
+void MenuButton::onClick()
+{
+	printf("Clicked");
+}
 
 MainMenuHandler::MainMenuHandler(Scene_Menu &menu) {this->scene_menu = &menu;}
 
 void MainMenuHandler::Update(sf::RenderWindow &window)
 {
+	Vector2f mousePos = { (float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y };
+
 	//Add Update Commands Here
-	handleButtonHover(window);
+	handleButtonHover(mousePos, window);
+	handleButtonClick(mousePos, window);
 
 }
 
-//Hovering Code Mechanic [For Each Button, Perform Action]
-void MainMenuHandler::handleButtonHover(sf::RenderWindow &window)
+void MainMenuHandler::handleButtonClick(sf::Vector2f mousePos , sf::RenderWindow &window)
 {
-	Vector2f mousePos = { (float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y };
+	
+	for each (MenuButton* button in scene_menu->getButtons())
+	{
+		button->action_MouseClick(mousePos, button->baseSprite);
+	}
+}
+
+
+//Hovering Code Mechanic [For Each Button, Perform Action]
+void MainMenuHandler::handleButtonHover(sf::Vector2f mousePos, sf::RenderWindow &window)
+{
 	
 	for each (MenuButton* button in scene_menu->getButtons())
 	{
 		if (button->action_MouseHover(mousePos, button->baseSprite)) { break; } else { continue; }
-
 	}
 }
 

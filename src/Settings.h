@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+
 const std::string RES_DIRECTORY = "C:\\Users\\Mark Pereira\\Desktop\\GamesDevelopment\\Coursework\\gamesproject\\res\\";
 
 class Settings{
