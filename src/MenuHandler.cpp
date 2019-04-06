@@ -1,12 +1,13 @@
+#include "Game.h"
 #include "Menu.h"
-#include "Scene.h"
-#include "Handler.h"
 #include "InteractiveSprite.h"
+#include "Handler.h"
+#include "Scene.h"
 
 using namespace sf;
 //Class MenuButton
 
-MenuButton::MenuButton() : InteractiveSprite() {}
+MenuButton::MenuButton() : InteractHandler() {}
 
 MenuButton::~MenuButton() 
 {
@@ -17,11 +18,12 @@ MenuButton::~MenuButton()
 	*/
 }
 
-MenuButton::MenuButton(sf::Texture texture, sf::Text text) : InteractiveSprite()
+MenuButton::MenuButton(sf::Texture texture, sf::Text text) : InteractHandler()
 {
 	this->text = text;
 	this->baseTexture = texture;
 	this->baseSprite.setTexture(this->baseTexture);
+
 }
 
 //Customizable: What happens when Hovering on buttons
@@ -43,6 +45,10 @@ void MenuButton::offHover()
 void MenuButton::onClick()
 {
 	printf("Clicked");
+	
+	Game::getManager().loadScene();
+	
+	
 }
 
 MainMenuHandler::MainMenuHandler(Scene_Menu &menu) {this->scene_menu = &menu;}

@@ -1,9 +1,6 @@
 #pragma once
-
-
 #include "Settings.h"
 #include "InteractiveSprite.h"
-
 #include <SFML/Graphics.hpp>
 #include <String.h>
 
@@ -15,11 +12,9 @@ const std::string	MENU_FONT = RES_DIRECTORY + "fonts/MizoArial.ttf";
 const sf::Color     MENU_FONT_COLOUR = sf::Color::Black;
 const int			MENU_CHAR_SIZE = 30;
 
-const std::string	SPRITE_CLOUDS = RES_DIRECTORY + "BlueSky.png";
-const std::string   SPRITE_BUTTON = RES_DIRECTORY + "MenuButton.png";
 
 
-class MenuButton : public InteractiveSprite
+class MenuButton : public InteractHandler
 {
 public:
 	MenuButton();
@@ -31,10 +26,25 @@ public:
 	sf::Text text;
 
 private:
-
 	void onHover() override;
 	void offHover() override;
 	void onClick() override;
+
+};
+
+class MenuWindow
+{
+public:
+	MenuWindow();
+	MenuWindow(int x, int y, int width, int height);
+	~MenuWindow();
+	
+	
+private:
+	sf::Text text;
+	sf::Sprite baseSprite;
+	sf::Texture baseTexture;
+	void drawWindow();
 
 };
 

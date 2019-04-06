@@ -1,8 +1,7 @@
 #include "Menu.h"
-#include "Settings.h"
+
 
 using namespace sf;
-Settings& Settings::getInstance() { static Settings instance; return instance; }
 
 Settings::~Settings() {}
 Settings::Settings() 

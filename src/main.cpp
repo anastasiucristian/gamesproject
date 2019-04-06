@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
 #include "Menu.h"
 #include "Settings.h"
 #include "Scene.h"
+#include "Game.h"
 
 using namespace sf;
 using namespace std;
@@ -12,31 +12,41 @@ const int gameWidth = 1920;
 const int gameHeight = 1080;
 
 Scene_Menu scene_Menu;
+Scene * scene = &scene_Menu;
 
-void Load(RenderWindow &window){
 
-	scene_Menu.Load(window);
+Game sceneManager = Game::getManager();
+
+
+
+
+void Load(sf::RenderWindow &window){
+
+	
+	sceneManager.startGame(window, scene);
 }
 
-void Update(RenderWindow &window) {
+void Update(sf::RenderWindow &window) {
 
 	Event event;
 	while (window.pollEvent(event)) {
 		if (event.type == Event::Closed) {window.close(); return;}
 
 	}
-
-	scene_Menu.Update(window);
+	sceneManager.UpdateScene();
 }
-void Render(RenderWindow &window){
+void Render(sf::RenderWindow &window){
 	window.clear();
-	scene_Menu.Render(window);
+	sceneManager.RenderScene();
+	
 
 }
+
 
 int main(){
-  //RenderWindow window(VideoMode(gameWidth,gameHeight), "Danger", sf::Style::Fullscreen);
-  RenderWindow window(VideoMode(gameWidth/2,gameHeight/2), "Squabble");
+	
+  RenderWindow window(VideoMode(gameWidth / 2, gameHeight / 2), "Squabble");
+  //sf::RenderWindow *w = new sf::RenderWindow(VideoMode(gameWidth, gameHeight), "Danger", sf::Style::Fullscreen);
 
   Load(window);
   
@@ -44,7 +54,6 @@ int main(){
 	Update(window);
 	Render(window);
 	window.display();
-	
 
   }
 

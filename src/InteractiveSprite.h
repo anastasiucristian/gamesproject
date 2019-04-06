@@ -3,11 +3,11 @@
 
 #define INPUT_BUFFER_TIME 100;
 
-class InteractiveSprite : public sf::Sprite
+class InteractHandler 
 {
 public:
-	InteractiveSprite();
-	~InteractiveSprite();
+	InteractHandler();
+	~InteractHandler();
 
 	bool action_MouseHover(sf::Vector2f mousePos, sf::Sprite sprite);
 	bool action_MouseClick(sf::Vector2f mousePos, sf::Sprite sprite);

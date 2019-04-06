@@ -1,21 +1,20 @@
 #pragma once
+#include "Settings.h"
 #include "Menu.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
 const sf::Vector2f SCROLLING = {-0.1f,0.0f};
+
 class Scene {
 public:
 	Scene();
 	int id;
 	int name;
-	void Update(sf::RenderWindow &window);
-	void Load(sf::RenderWindow &window);
-	void Render(sf::RenderWindow &window);
+	virtual void Update(sf::RenderWindow &window);
+	virtual void Load(sf::RenderWindow &window);
+	virtual void Render(sf::RenderWindow &window);
 
-	void setBackground(sf::Texture &texture);
-	void setBackgroundScrolling(bool boolean) { scrollingEnabled = (!scrollingEnabled == boolean) ? boolean : scrollingEnabled; }
-	void setScrollingVector(sf::Vector2f v) { scrollingVector = v; }
 
 protected:
 	std::vector <sf::Sprite *> sprites;
@@ -23,12 +22,18 @@ protected:
 	sf::Sprite background;
 	sf::Sprite backgroundScrollingBuffer;
 
+	void setBackground(sf::Texture &texture);
+	void setBackgroundScrolling(bool boolean) { scrollingEnabled = (!scrollingEnabled == boolean) ? boolean : scrollingEnabled; }
+	void setScrollingVector(sf::Vector2f v) { scrollingVector = v; }
+
 private:
 
 	sf::Vector2f scrollingVector = SCROLLING;
 	bool scrollingEnabled = false;
 	void scrollBackground(sf::RenderWindow &window);
 };
+
+
 #ifndef Scene_Menu_H
 #define Scene_Menu_H
 
@@ -42,6 +47,7 @@ public:
 	void Load(sf::RenderWindow &window);
 	void Render(sf::RenderWindow &window);
 	std::vector<MenuButton*> getButtons();
+	
 
 private:
 	MainMenuHandler * handler;
@@ -53,6 +59,22 @@ private:
 };
 
 #endif
+
+class Scene_CharacterSelect : public Scene
+{
+public:
+	Scene_CharacterSelect();
+	~Scene_CharacterSelect();
+	void Update(sf::RenderWindow &window);
+	void Load(sf::RenderWindow &window);
+	void Render(sf::RenderWindow &window);
+
+
+private:
+
+
+
+};
 
 
 
