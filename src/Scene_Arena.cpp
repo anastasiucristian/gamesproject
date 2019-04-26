@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <string>
 #include <iostream>
 #include <time.h>
 #include <SFML/Audio.hpp>
@@ -57,6 +58,14 @@ void Scene_Arena::Render(sf::RenderWindow &window)
 	b1.setPosition(tempPos);
 	b2.setPosition(tempPos);
 	player2.canShoot();
+	sf::Text score;
+	sf::Font font;
+	font.loadFromFile(RES_DIRECTORY + "Fonts\\ARIALI.ttf");
+	score.setFont(font);
+	score.setCharacterSize(150);
+	score.setColor(sf::Color::Red);
+	std::string scoreString;
+
 	while (window.isOpen())
 	  {
 		  sf::Event event;
@@ -229,6 +238,28 @@ void Scene_Arena::Render(sf::RenderWindow &window)
 		  player1.draw(window);//draw newly moved player
 		  b1.draw(window);
 		  b2.draw(window);
+		  
+		  
+		  scoreString = std::to_string(player1.getScore());
+		  score.setString(scoreString);
+		  tempPos.x = 720;
+		  tempPos.y = -30;
+		  score.setPosition(tempPos);
+		  window.draw(score);
+
+		  //making it so the score won't be drawn outside the scorebox
+		  if (player2.getScore() < 10) {
+			  scoreString = "  " + std::to_string(player2.getScore());
+		  }
+		  else {
+			  scoreString = std::to_string(player2.getScore());
+		  }
+		  
+		  score.setString(scoreString);
+		  tempPos.x = 1030;
+		  score.setPosition(tempPos);
+		  window.draw(score);
+
 		  window.display();//display window
 	  }
   }
