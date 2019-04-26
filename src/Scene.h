@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <SFML/Audio.hpp>
 
 const sf::Vector2f SCROLLING = {-0.1f,0.0f};
 
@@ -47,7 +48,7 @@ public:
 	void Load(sf::RenderWindow &window);
 	void Render(sf::RenderWindow &window);
 	std::vector<MenuButton*> getButtons();
-	
+
 
 private:
 	MainMenuHandler * handler;
@@ -76,6 +77,14 @@ private:
 
 };
 
+class Scene_Arena : public Scene
+{
+public:
+	Scene_Arena();
+	~Scene_Arena();
+	void Update(sf::RenderWindow &window);
+	void Load(sf::RenderWindow &window);
+	void Render(sf::RenderWindow &window);
+private:
 
-
-
+};

@@ -1,0 +1,7 @@
+//Setting the background image location
+BACKGROUND_TEXTURE Clouds.png
+
+//Setting the tile 
+
+//setting the level grid
+//X-value | Y-value | Texture type

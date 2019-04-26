@@ -1,9 +1,6 @@
 #pragma once
 #include "Scene.h"
 
-
-
-
 class Game
 {
 public:
@@ -11,22 +8,18 @@ public:
 	void startGame(sf::RenderWindow &window, Scene * target) //Only use for first scene
 	{
 		//window.clear();
-		runningScene = target; 
+		runningScene = target;
 		game_window = &window;
-		runningScene->Load(*game_window); 
-		
+		runningScene->Load(*game_window);
 	}
 
 	void loadScene()
 	{
-
-		
 		//runningScene = x;
 		//runningScene->Load(*game_window);
 	}
 
 	void UpdateScene() {
-
 		runningScene->Update(*game_window);
 	};
 
@@ -42,8 +35,4 @@ private:
 	//Scene_CharacterSelect c;
 	//Scene *x = &c;
 
-
-	
-
 };
-

@@ -9,7 +9,7 @@ using namespace sf;
 
 MenuButton::MenuButton() : InteractHandler() {}
 
-MenuButton::~MenuButton() 
+MenuButton::~MenuButton()
 {
 	/*
 	delete &baseSprite;
@@ -36,7 +36,7 @@ void MenuButton::onHover()
 //Customizable: What happens when Hovering off buttons
 void MenuButton::offHover()
 {
-	
+
 	//this->baseSprite.setScale({ 1,1 });
 	this->text.setColor(sf::Color::Black);
 }
@@ -45,10 +45,10 @@ void MenuButton::offHover()
 void MenuButton::onClick()
 {
 	printf("Clicked");
-	
+
 	Game::getManager().loadScene();
-	
-	
+
+
 }
 
 MainMenuHandler::MainMenuHandler(Scene_Menu &menu) {this->scene_menu = &menu;}
@@ -65,7 +65,7 @@ void MainMenuHandler::Update(sf::RenderWindow &window)
 
 void MainMenuHandler::handleButtonClick(sf::Vector2f mousePos , sf::RenderWindow &window)
 {
-	
+
 	for each (MenuButton* button in scene_menu->getButtons())
 	{
 		button->action_MouseClick(mousePos, button->baseSprite);
@@ -76,14 +76,9 @@ void MainMenuHandler::handleButtonClick(sf::Vector2f mousePos , sf::RenderWindow
 //Hovering Code Mechanic [For Each Button, Perform Action]
 void MainMenuHandler::handleButtonHover(sf::Vector2f mousePos, sf::RenderWindow &window)
 {
-	
+
 	for each (MenuButton* button in scene_menu->getButtons())
 	{
 		if (button->action_MouseHover(mousePos, button->baseSprite)) { break; } else { continue; }
 	}
 }
-
-
-
-
-
