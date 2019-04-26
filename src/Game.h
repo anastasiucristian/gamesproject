@@ -3,41 +3,40 @@
 
 
 
-
+class Scene;
 class Game
 {
 public:
 	static Game& getManager() { static Game instance; return instance; }
-	void startGame(sf::RenderWindow &window, Scene * target) //Only use for first scene
+	void startGame(Scene * target) //Only use for first scene
 	{
 		//window.clear();
 		runningScene = target; 
-		game_window = &window;
-		runningScene->Load(*game_window); 
+		runningScene->Load(); 
 		
 	}
 
-	void loadScene()
+	void loadScene(Scene * scene)
 	{
 
 		
-		//runningScene = x;
-		//runningScene->Load(*game_window);
+		runningScene = scene;
+		runningScene->Load();
 	}
 
 	void UpdateScene() {
 
-		runningScene->Update(*game_window);
+		runningScene->Update();
 	};
 
-	void RenderScene() { runningScene->Render(*game_window); };
+	void RenderScene() { runningScene->Render(); };
 
 	Scene* getRunningScene() { return runningScene; };
-	sf::RenderWindow &getWindow() { return *game_window; };
+
 
 private:
 	Scene * runningScene;
-	sf::RenderWindow *game_window;
+
 
 	//Scene_CharacterSelect c;
 	//Scene *x = &c;

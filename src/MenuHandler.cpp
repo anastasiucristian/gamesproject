@@ -1,11 +1,14 @@
-#include "Game.h"
 #include "Menu.h"
-#include "InteractiveSprite.h"
+#include "Game.h"
 #include "Handler.h"
-#include "Scene.h"
+#include "Renderer.h"
 
 using namespace sf;
 //Class MenuButton
+
+Scene_CharacterSelect scene_CharSelect;
+Scene_Arena scene_arena;
+
 
 MenuButton::MenuButton() : InteractHandler() {}
 
@@ -29,6 +32,7 @@ MenuButton::MenuButton(sf::Texture texture, sf::Text text) : InteractHandler()
 //Customizable: What happens when Hovering on buttons
 void MenuButton::onHover()
 {
+
 	//this->baseSprite.setScale({(float)1.2,(float)1.2});
 	this->text.setColor(sf::Color::Red);
 }
@@ -44,42 +48,65 @@ void MenuButton::offHover()
 //Customizable: What happens when Hovering off buttons
 void MenuButton::onClick()
 {
-	printf("Clicked");
 	
-	Game::getManager().loadScene();
+	if (label == menuItems::play)
+	{
+		printf("Play");
+		Scene * scene = &scene_arena;
+		//Game::getManager().loadScene(scene);
+
+	}
+
+	if (label == menuItems::settings)
+	{
+		printf("Settings");
+		Scene * scene = &scene_CharSelect;
+		Game::getManager().loadScene(scene);
+	}
+	
 	
 	
 }
 
-MainMenuHandler::MainMenuHandler(Scene_Menu &menu) {this->scene_menu = &menu;}
 
-void MainMenuHandler::Update(sf::RenderWindow &window)
+
+void MainMenuHandler::Update()
 {
-	Vector2f mousePos = { (float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y };
-
+	
 	//Add Update Commands Here
-	handleButtonHover(mousePos, window);
-	handleButtonClick(mousePos, window);
+	sf::WindowBase *base = Renderer::instance();
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(*base);
+	
+	handleButtonHover(mousePosition);
+	handleButtonClick(mousePosition);
+	
+	scene_menu->action_Keypress();
+
+	
 
 }
 
-void MainMenuHandler::handleButtonClick(sf::Vector2f mousePos , sf::RenderWindow &window)
+void MainMenuHandler::handleButtonClick(sf::Vector2i mousePos)
 {
 	
 	for each (MenuButton* button in scene_menu->getButtons())
 	{
+	
 		button->action_MouseClick(mousePos, button->baseSprite);
+		
+
 	}
+
 }
 
 
 //Hovering Code Mechanic [For Each Button, Perform Action]
-void MainMenuHandler::handleButtonHover(sf::Vector2f mousePos, sf::RenderWindow &window)
+void MainMenuHandler::handleButtonHover(sf::Vector2i mousePos)
 {
 	
 	for each (MenuButton* button in scene_menu->getButtons())
 	{
-		if (button->action_MouseHover(mousePos, button->baseSprite)) { break; } else { continue; }
+		if (button->action_MouseHover(mousePos, button->baseSprite));
 	}
 }
 

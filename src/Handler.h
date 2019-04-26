@@ -5,19 +5,26 @@
 
 #include <SFML/Graphics.hpp>
 
+enum menuItems
+{
+	play,
+	settings
+};
+
 class Scene_Menu;
 //Handles the various mechanics happening on the Main Menu
 class MainMenuHandler
 {
 public:
-	MainMenuHandler(Scene_Menu &menu);
-	void Update(sf::RenderWindow &window);
+	
+	MainMenuHandler(Scene_Menu &menu) { this->scene_menu = &menu; }
+	void Update();
 
 private:
 
 	Scene_Menu * scene_menu;
-	void handleButtonHover(sf::Vector2f mousePos , sf::RenderWindow &window);
-	void handleButtonClick(sf::Vector2f mousePos , sf::RenderWindow &window);
+	void handleButtonHover(sf::Vector2i mousePos);
+	void handleButtonClick(sf::Vector2i mousePos);
 };
 
 #endif

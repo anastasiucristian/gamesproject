@@ -1,5 +1,6 @@
 #include "Scene.h"
-#include "Menu.h"
+#include "Game.h"
+#include "Renderer.h"
 #include "Handler.h"
 
 /*
@@ -14,21 +15,55 @@ The Function Declarations of the Following Classes are here:
 
 //Scene: Defines a set of sprites currently on screen.
 
-Scene::Scene() {}
+Scene::Scene() { }
 
-void Scene::Update(sf::RenderWindow &window)
+Scene::~Scene() {
+	for each (sf::Sprite* sprite in sprites)
+	{
+		delete sprite;
+
+	}
+
+	for each (sf::Texture* tex in textures)
+	{
+		delete tex;
+
+	}
+}
+
+void Scene::Update()
 { 
-	scrollBackground(window);
+	
+	scrollBackground();
 }
 
-void Scene::Load(sf::RenderWindow &window) { window.clear(); }
+void Scene::Load() { Renderer::instance()->clear(); }
 
-void Scene::Render(sf::RenderWindow &window)
+void Scene::Render()
 {
-	window.draw(background);
-	if (scrollingEnabled) { window.draw(backgroundScrollingBuffer); }
+	Renderer::instance()->draw(background);
+	if (scrollingEnabled) { Renderer::instance()->draw(backgroundScrollingBuffer); }
+
+	/*
+	for each (sf::Sprite* sprite in sprites)
+	{
+		Renderer::instance()->draw(*sprite);
+		
+	}
+	*/
+	
 
 }
+
+void Scene::pushTexdSprite(sf::Sprite sprite, sf::Texture* tex)
+{
+	sprite.setTexture(*tex);
+	sprites.push_back(&sprite);
+
+	textures.push_back(tex);
+}
+
+char Scene::action_Keypress() { return 'Z'; }
 
 void Scene::setBackground(sf::Texture &texture)
 {
@@ -38,7 +73,9 @@ void Scene::setBackground(sf::Texture &texture)
 }
 
 
-void Scene::scrollBackground(sf::RenderWindow &window)
+
+
+void Scene::scrollBackground()
 {
 	if (!scrollingEnabled) { return; }
 	
@@ -73,24 +110,38 @@ Scene_Menu::~Scene_Menu()
 	delete handler;
 }
 
-void Scene_Menu::Render(sf::RenderWindow &window)
+void Scene_Menu::Render()
 {
 	//Render the background from the Base Scene class
-	Scene::Render(window);
+	Scene::Render();
 
 	for each (MenuButton* button in buttons)
 	{
-		window.draw(button->baseSprite);
-		window.draw(button->text);
+		Renderer::instance()->draw(button->baseSprite);
+		Renderer::instance()->draw(button->text);
 		
 	}
 	
 }
 
-//Setup the Menu here:
-void Scene_Menu::Load(sf::RenderWindow &window)
+
+char Scene_Menu::action_Keypress() 
 {
-	Scene::Load(window);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+	{
+		
+		return 'K';
+
+	}
+
+	return '\n';
+}
+
+
+//Setup the Menu here:
+void Scene_Menu::Load()
+{
+	Scene::Load();
 
 	//Set Background Texture:
 	sf::Texture * background_tex = new sf::Texture();
@@ -108,17 +159,22 @@ void Scene_Menu::Load(sf::RenderWindow &window)
 
 	//Create Buttons
 	MenuButton* playButton = new MenuButton(*button_texture, text_Play);
+	playButton->setLabel(menuItems::play);
+
 	MenuButton* settingsButton = new MenuButton(*button_texture, text_Settings);
+	settingsButton->setLabel(menuItems::settings);
 
 	//Make sure to draw the Buttons. Position is automatically set with autoDraw function.
 	autoDrawButton(playButton);
 	autoDrawButton(settingsButton);	
+
+
 }
 
-void Scene_Menu::Update(sf::RenderWindow &window)
+void Scene_Menu::Update()
 {
-	Scene::Update(window);
-	this->handler->Update(window);
+	Scene::Update();
+	this->handler->Update();
 }
 
 std::vector<MenuButton*> Scene_Menu::getButtons() {return buttons; }
@@ -151,14 +207,3 @@ void Scene_Menu::autoDrawButton(MenuButton *button)
 	buttons.push_back(button);
 
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -14,7 +14,7 @@ void InteractHandler::onHover() {}; //Override
 
 void InteractHandler::offHover() {}; //Override
 
-bool InteractHandler::action_MouseClick(sf::Vector2f mousePos, sf::Sprite sprite)
+bool InteractHandler::action_MouseClick(sf::Vector2i mousePos, sf::Sprite sprite)
 {
 	if (isMouseClicked(mousePos, sprite))
 	{
@@ -25,28 +25,35 @@ bool InteractHandler::action_MouseClick(sf::Vector2f mousePos, sf::Sprite sprite
 }
 
 //Perform the appropriate Hover Actions. onHover and offHover should be Overridden
-bool InteractHandler::action_MouseHover(sf::Vector2f mousePos , sf::Sprite sprite)
+bool InteractHandler::action_MouseHover(sf::Vector2i mousePos , sf::Sprite sprite)
 {
+
 	if (isMouseHovered(mousePos , sprite))
 	{
+		
 		onHover(); 
 		return true;
 	}
 	else
 	{
+		
 		offHover();
 		return false;
 	}
 };
 
+
+
 //Checks if the Mouse if Hovering the designated sprite
-bool InteractHandler::isMouseHovered(sf::Vector2f mousePos , sf::Sprite sprite) {
-	
-	return (sprite.getGlobalBounds().contains(mousePos)) ? true : false;
+bool InteractHandler::isMouseHovered(sf::Vector2i mousePos , sf::Sprite sprite) {
+	sf::Vector2f mousePos_f = { (float)mousePos.x, (float)mousePos.y };
+	sf::FloatRect bounds = sprite.getGlobalBounds();
+	//printf("Here");
+	return (bounds.contains(mousePos_f)) ? true : false;
 
 }
 
-bool InteractHandler::isMouseClicked(sf::Vector2f mousePos, sf::Sprite sprite)
+bool InteractHandler::isMouseClicked(sf::Vector2i mousePos, sf::Sprite sprite)
 {
 	float deltaTime = inputClock.restart().asMilliseconds();
 

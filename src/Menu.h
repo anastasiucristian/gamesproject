@@ -1,6 +1,6 @@
 #pragma once
-#include "Settings.h"
 #include "InteractiveSprite.h"
+#include "Settings.h"
 #include <SFML/Graphics.hpp>
 #include <String.h>
 
@@ -21,14 +21,21 @@ public:
 	MenuButton(sf::Texture, sf::Text);
 	~MenuButton();
 
+	void setLabel(int label) { this->label = label; };
+
 	sf::Sprite baseSprite;
 	sf::Texture baseTexture;
 	sf::Text text;
+
+
 
 private:
 	void onHover() override;
 	void offHover() override;
 	void onClick() override;
+	//void press_K();
+
+	int label;
 
 };
 

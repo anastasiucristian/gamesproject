@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
+const std::string   LEVEL_DIRECTORY = "C:\\Users\\Mark Pereira\\Desktop\\GamesDevelopment\\Coursework\\gamesproject\\levels\\";
 const std::string   RES_DIRECTORY = "C:\\Users\\Mark Pereira\\Desktop\\GamesDevelopment\\Coursework\\gamesproject\\res\\";
 const std::string	SPRITE_DEFAULT = RES_DIRECTORY + "Clouds.png";
 const std::string	SPRITE_CLOUDS = RES_DIRECTORY + "BlueSky.png";

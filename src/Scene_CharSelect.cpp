@@ -9,16 +9,16 @@ Scene_CharacterSelect::~Scene_CharacterSelect()
 
 }
 
-void Scene_CharacterSelect::Render(sf::RenderWindow &window)
+void Scene_CharacterSelect::Render()
 {
 	//Render the background from the Base Scene class
-	Scene::Render(window);
+	Scene::Render();
 }
 
 //Setup the Menu here:
-void Scene_CharacterSelect::Load(sf::RenderWindow &window)
+void Scene_CharacterSelect::Load()
 {
-	Scene::Load(window);
+	Scene::Load();
 
 	//Set Background Texture:
 	sf::Texture * background_tex = new sf::Texture();
@@ -28,9 +28,9 @@ void Scene_CharacterSelect::Load(sf::RenderWindow &window)
 	
 }
 
-void Scene_CharacterSelect::Update(sf::RenderWindow &window)
+void Scene_CharacterSelect::Update()
 {
-	Scene::Update(window);
+	Scene::Update();
 	
 
 }
