@@ -75,7 +75,7 @@ void Level::loadLevel(){
 		}
 	}
 
-  std::string levelPath = "C:\\Uni\\Games\\gamesprojecta\\levels\\level1.txt";
+  std::string levelPath = LEVEL_DIRECTORY + "level1.txt";
   ifstream f(levelPath);
   //first 3 lines will be paths for the background, top and bottom texture
   string line;
