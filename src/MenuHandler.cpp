@@ -7,8 +7,6 @@ using namespace sf;
 //Class MenuButton
 
 Scene_CharacterSelect scene_CharSelect;
-Scene_Arena scene_arena;
-
 
 MenuButton::MenuButton() : InteractHandler() {}
 
@@ -29,17 +27,26 @@ MenuButton::MenuButton(sf::Texture texture, sf::Text text) : InteractHandler()
 
 }
 
+
 //Customizable: What happens when Hovering on buttons
 void MenuButton::onHover()
 {
+	if (Game::getManager().getRunningScene()->name == Scenes::scene_mainMenu)
+	{
+		Scene_Menu::instance().showToolTip(*this);
+	}
+	
 
 	//this->baseSprite.setScale({(float)1.2,(float)1.2});
 	this->text.setColor(sf::Color::Red);
 }
 
+
 //Customizable: What happens when Hovering off buttons
 void MenuButton::offHover()
 {
+	
+	Game::getManager().getRunningScene()->windows.clear();
 	
 	//this->baseSprite.setScale({ 1,1 });
 	this->text.setColor(sf::Color::Black);
@@ -52,8 +59,10 @@ void MenuButton::onClick()
 	if (label == menuItems::play)
 	{
 		printf("Play");
-		Scene * scene = &scene_arena;
-		//Game::getManager().loadScene(scene);
+		Scene_Menu::instance().unload();
+		Scene *scene = &Scene_Transition::instance(&Scene_Arena::instance());
+		//Scene * scene = &Scene_Arena::instance();
+		Game::getManager().loadScene(scene);
 
 	}
 

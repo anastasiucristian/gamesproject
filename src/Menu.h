@@ -22,6 +22,7 @@ public:
 	~MenuButton();
 
 	void setLabel(int label) { this->label = label; };
+	int getLabel() { return label; };
 
 	sf::Sprite baseSprite;
 	sf::Texture baseTexture;
@@ -43,15 +44,18 @@ class MenuWindow
 {
 public:
 	MenuWindow();
-	MenuWindow(int x, int y, int width, int height);
 	~MenuWindow();
 	
-	
-private:
-	sf::Text text;
+	//Set Window Texture:
+	sf::Texture * menu_texture = new sf::Texture();
+
 	sf::Sprite baseSprite;
 	sf::Texture baseTexture;
-	void drawWindow();
+
+
+private:
+	std::string text;
+
 
 };
 

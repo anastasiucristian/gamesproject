@@ -6,6 +6,15 @@
 
 #include <SFML/Audio.hpp>
 #pragma once
+
+struct deltaRecorder
+{
+	sf::Vector2f prev;
+	sf::Vector2f current;
+};
+
+
+
 class Player {
 public:
 	Player();
@@ -30,6 +39,11 @@ public:
 	void yellowDino();
 	void addScore();
 	int getScore();
+
+	bool deltaAlternator = false; //Alternates with every call to check motion direction by recording the previous position
+	deltaRecorder rec;
+
+	sf::Sprite getSprite() { return sprite; }
 
 private:
 	bool facingRight = true;

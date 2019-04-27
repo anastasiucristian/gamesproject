@@ -12,7 +12,8 @@ public:
 	void faceLeft(); //change bullet direction
 	void faceRight();
 	void draw(); //draw the bullet
-	void move();
+	void move();//moves
+	void hide();//hides the bullet
 	sf::Vector2f getPosition(); //get bullet position (for when collided with a player)
 	void setPosition(sf::Vector2f pos); //set origin from when the bullet is movingRight
 

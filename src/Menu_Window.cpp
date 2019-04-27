@@ -1,17 +1,15 @@
 #include "Menu.h"
+#include "Game.h"
 #include <SFML/Graphics.hpp>
-
-MenuWindow::MenuWindow() {}
 
 MenuWindow::~MenuWindow() {}
 
-MenuWindow::MenuWindow(int x,int y, int width, int height) 
+MenuWindow::MenuWindow()
 {
+	menu_texture->loadFromFile(SPRITE_WINDOW);
+	this->baseSprite.setTexture(*menu_texture);
+	
 
 }
 
-void MenuWindow::drawWindow()
-{
-
-}
 

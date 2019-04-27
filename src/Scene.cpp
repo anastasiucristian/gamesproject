@@ -15,20 +15,10 @@ The Function Declarations of the Following Classes are here:
 
 //Scene: Defines a set of sprites currently on screen.
 
-Scene::Scene() { }
+Scene::Scene() {  }
 
 Scene::~Scene() {
-	for each (sf::Sprite* sprite in sprites)
-	{
-		delete sprite;
 
-	}
-
-	for each (sf::Texture* tex in textures)
-	{
-		delete tex;
-
-	}
 }
 
 void Scene::Update()
@@ -44,23 +34,8 @@ void Scene::Render()
 	Renderer::instance()->draw(background);
 	if (scrollingEnabled) { Renderer::instance()->draw(backgroundScrollingBuffer); }
 
-	/*
-	for each (sf::Sprite* sprite in sprites)
-	{
-		Renderer::instance()->draw(*sprite);
-		
-	}
-	*/
 	
 
-}
-
-void Scene::pushTexdSprite(sf::Sprite sprite, sf::Texture* tex)
-{
-	sprite.setTexture(*tex);
-	sprites.push_back(&sprite);
-
-	textures.push_back(tex);
 }
 
 char Scene::action_Keypress() { return 'Z'; }
@@ -100,6 +75,8 @@ void Scene::scrollBackground()
 
 Scene_Menu::Scene_Menu() : Scene() 
 {
+	this->name = Scenes::scene_mainMenu;
+
 	MainMenuHandler * handler = new MainMenuHandler(*this);
 	this->handler = handler;
 }
@@ -121,6 +98,13 @@ void Scene_Menu::Render()
 		Renderer::instance()->draw(button->text);
 		
 	}
+
+	for (auto &ent : windows) {
+		
+		Renderer::instance()->draw(ent.second->baseSprite);
+	}
+
+	
 	
 }
 
@@ -153,9 +137,13 @@ void Scene_Menu::Load()
 	sf::Texture * button_texture = new sf::Texture();
 	button_texture->loadFromFile(SPRITE_BUTTON);
 
+
+
 	//Set Button Text. Accesses Settings to get the default text font and style
 	sf::Text text_Play = Settings::getInstance().getText("Play");
 	sf::Text text_Settings = Settings::getInstance().getText("Settings");
+
+	
 
 	//Create Buttons
 	MenuButton* playButton = new MenuButton(*button_texture, text_Play);
@@ -163,7 +151,9 @@ void Scene_Menu::Load()
 
 	MenuButton* settingsButton = new MenuButton(*button_texture, text_Settings);
 	settingsButton->setLabel(menuItems::settings);
+	
 
+	
 	//Make sure to draw the Buttons. Position is automatically set with autoDraw function.
 	autoDrawButton(playButton);
 	autoDrawButton(settingsButton);	
@@ -177,7 +167,7 @@ void Scene_Menu::Update()
 	this->handler->Update();
 }
 
-std::vector<MenuButton*> Scene_Menu::getButtons() {return buttons; }
+
 
 //Automatically set the position of Menu Buttons and Text
 void Scene_Menu::autoDrawButton(MenuButton *button)
@@ -206,4 +196,26 @@ void Scene_Menu::autoDrawButton(MenuButton *button)
 	//Add the button to the Vector array
 	buttons.push_back(button);
 
+}
+
+void Scene_Menu::showToolTip(MenuButton button)
+{
+	if (button.getLabel()==menuItems::play)
+	{
+		printf("Creating Tooltip");
+		if (tooltip=nullptr )
+		{
+			
+			//tooltip = new MenuWindow();
+		
+
+		}
+		else
+		{
+
+
+
+		}
+		
+	}
 }

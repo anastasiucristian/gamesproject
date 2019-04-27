@@ -2,6 +2,13 @@
 #include "Scene.h"
 
 
+enum Scenes
+{
+	scene_mainMenu,
+	scene_settings,
+	scene_Game,
+
+};
 
 class Scene;
 class Game
@@ -10,7 +17,7 @@ public:
 	static Game& getManager() { static Game instance; return instance; }
 	void startGame(Scene * target) //Only use for first scene
 	{
-		//window.clear();
+		//Renderer::instance()->clear();
 		runningScene = target; 
 		runningScene->Load(); 
 		
@@ -32,6 +39,7 @@ public:
 	void RenderScene() { runningScene->Render(); };
 
 	Scene* getRunningScene() { return runningScene; };
+
 
 
 private:
