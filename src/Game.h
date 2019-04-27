@@ -1,6 +1,17 @@
 #pragma once
 #include "Scene.h"
 
+/*
+Game.h
+
+Contains controller functions of the overall game (Scene Management, Switching, Rendering etc.)
+
+Contents:
+1. MenuButton
+2. MenuWindow
+
+Author: Mark Pereira . Last Modified: 27/04/19 12:00
+*/
 
 enum Scenes
 {
@@ -41,15 +52,8 @@ public:
 	Scene* getRunningScene() { return runningScene; };
 
 
-
 private:
 	Scene * runningScene;
-
-
-	//Scene_CharacterSelect c;
-	//Scene *x = &c;
-
-
 	
 
 };

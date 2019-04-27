@@ -5,6 +5,14 @@
 #include <memory>
 #include <string>
 
+/*
+Level.h
+
+Provides construction Methods of game Levels (Buttons, Windows, etc.)
+
+Author:  Cristian Anastasiu 
+*/
+
 class Level{
 public:
 	Level();

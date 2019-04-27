@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Audio.hpp>
 #include "Settings.h"
 #include <SFML/Graphics.hpp>
 #include "InteractiveSprite.h"
@@ -48,7 +49,7 @@ bool InteractHandler::action_MouseHover(sf::Vector2i mousePos , sf::Sprite sprit
 bool InteractHandler::isMouseHovered(sf::Vector2i mousePos , sf::Sprite sprite) {
 	sf::Vector2f mousePos_f = { (float)mousePos.x, (float)mousePos.y };
 	sf::FloatRect bounds = sprite.getGlobalBounds();
-	//printf("Here");
+	
 	return (bounds.contains(mousePos_f)) ? true : false;
 
 }
@@ -59,6 +60,11 @@ bool InteractHandler::isMouseClicked(sf::Vector2i mousePos, sf::Sprite sprite)
 
 	inputBuffer -= deltaTime;
 	if (inputBuffer >= 0.0f) { return false;  }
+
+	//sf::Sound sound;
+	//sound.setBuffer(Settings::getInstance().buffer);
+	//sound.play();
+
 	if ((isMouseHovered(mousePos, sprite)) && (sf::Mouse::isButtonPressed(sf::Mouse::Left)))
 	{
 		resetBuffer();

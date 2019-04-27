@@ -8,6 +8,7 @@ Settings::Settings()
 {
 	initializeFont();
 	initializeText();
+	
 }
 
 void Settings::initializeFont()

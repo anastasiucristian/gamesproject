@@ -11,9 +11,9 @@ The Function Declarations of the Following Classes are here:
 2. Scene Menu
 	- Load() : Set the Main Menu setup (Drawing of Buttons and Text)
 
+Author: Mark Pereira
 */
 
-//Scene: Defines a set of sprites currently on screen.
 
 Scene::Scene() {  }
 
@@ -29,6 +29,7 @@ void Scene::Update()
 
 void Scene::Load() { Renderer::instance()->clear(); }
 
+//Render Background
 void Scene::Render()
 {
 	Renderer::instance()->draw(background);
@@ -38,7 +39,8 @@ void Scene::Render()
 
 }
 
-char Scene::action_Keypress() { return 'Z'; }
+//Incomplete
+char Scene::action_Keypress() { return '\0'; }
 
 void Scene::setBackground(sf::Texture &texture)
 {
@@ -49,7 +51,7 @@ void Scene::setBackground(sf::Texture &texture)
 
 
 
-
+//Background scroll logic
 void Scene::scrollBackground()
 {
 	if (!scrollingEnabled) { return; }
@@ -73,6 +75,7 @@ void Scene::scrollBackground()
 
 //Defines the 'Main Menu' scene (Buttons, Windows (Incomplete), etc.)
 
+//Set handler
 Scene_Menu::Scene_Menu() : Scene() 
 {
 	this->name = Scenes::scene_mainMenu;
@@ -85,6 +88,7 @@ Scene_Menu::~Scene_Menu()
 {
 	for each (MenuButton* button in buttons){delete button;}
 	delete handler;
+
 }
 
 void Scene_Menu::Render()
@@ -92,6 +96,7 @@ void Scene_Menu::Render()
 	//Render the background from the Base Scene class
 	Scene::Render();
 
+	//Render the buttons
 	for each (MenuButton* button in buttons)
 	{
 		Renderer::instance()->draw(button->baseSprite);
@@ -99,6 +104,7 @@ void Scene_Menu::Render()
 		
 	}
 
+	//Render tooltip Windows (incomplete)
 	for (auto &ent : windows) {
 		
 		Renderer::instance()->draw(ent.second->baseSprite);
@@ -109,6 +115,7 @@ void Scene_Menu::Render()
 }
 
 
+//Incomplete: Respond to Keypresses
 char Scene_Menu::action_Keypress() 
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
@@ -143,7 +150,7 @@ void Scene_Menu::Load()
 	sf::Text text_Play = Settings::getInstance().getText("Play");
 	sf::Text text_Settings = Settings::getInstance().getText("Settings");
 
-	
+	sf::Text text_Quit = Settings::getInstance().getText("Quit");
 
 	//Create Buttons
 	MenuButton* playButton = new MenuButton(*button_texture, text_Play);
@@ -151,12 +158,16 @@ void Scene_Menu::Load()
 
 	MenuButton* settingsButton = new MenuButton(*button_texture, text_Settings);
 	settingsButton->setLabel(menuItems::settings);
+
+	MenuButton* exitButton = new MenuButton(*button_texture, text_Quit);
+	exitButton->setLabel(menuItems::quit);
 	
 
 	
 	//Make sure to draw the Buttons. Position is automatically set with autoDraw function.
 	autoDrawButton(playButton);
 	autoDrawButton(settingsButton);	
+	autoDrawButton(exitButton);
 
 
 }
@@ -182,7 +193,7 @@ void Scene_Menu::autoDrawButton(MenuButton *button)
 	//Add an interval depending on which button is inserted
 	for (unsigned int i = 0; i < buttons.size(); i++)
 	{
-		y += MENU_INTERVAL + buttonHeight;
+		y += MENU_INTERVAL + buttonHeight/1.5;
 		
 	}
 	//Calculate the Central Position of the Button to place Text
@@ -198,11 +209,12 @@ void Scene_Menu::autoDrawButton(MenuButton *button)
 
 }
 
+//Tooltip logic: Incomplete
 void Scene_Menu::showToolTip(MenuButton button)
 {
 	if (button.getLabel()==menuItems::play)
 	{
-		printf("Creating Tooltip");
+		//printf("Creating Tooltip");
 		if (tooltip=nullptr )
 		{
 			

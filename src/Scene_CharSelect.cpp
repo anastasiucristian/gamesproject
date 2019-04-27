@@ -1,7 +1,8 @@
 #include "Scene.h"
 #include "Renderer.h"
 
-
+//Scene_Character Select
+//Incomplete Code, this is not implemented in the final game
 enum settingsItems
 {
 	bt_prev,
@@ -25,6 +26,21 @@ void Scene_CharacterSelect::Render()
 {
 	//Render the background from the Base Scene class
 	Scene::Render();
+
+	for each (MenuButton* button in buttons)
+	{
+		Renderer::instance()->draw(button->baseSprite);
+		Renderer::instance()->draw(button->text);
+
+	}
+
+	for each (MenuText* text in texts)
+	{
+		Renderer::instance()->draw(text->text);
+	
+
+	}
+
 }
 
 //Setup the Menu here:
@@ -84,13 +100,18 @@ void Scene_CharacterSelect::Update()
 	
 	sf::Vector2f cursor = { MENU_POSITION.x  ,  MENU_POSITION.y };
 	
+	float space = prevButton->baseSprite.getGlobalBounds().width;
+
 	prevButton->baseSprite.setPosition({ cursor.x,cursor.y });
+	cursor.x += space;
 	cursor.x += 30.0f;
 	charName->text.setPosition({ cursor.x,cursor.y });
+	cursor.x += space;
 	cursor.x += 30.0f;
 	nextButton->baseSprite.setPosition({ cursor.x,cursor.y });
 
 	cursor.x = MENU_POSITION.x;
+	cursor.x += space;
 	cursor.y += 60.0f;
 	playButton->baseSprite.setPosition({ cursor.x,cursor.y });
 

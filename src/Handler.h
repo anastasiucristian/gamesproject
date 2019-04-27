@@ -8,11 +8,13 @@
 enum menuItems
 {
 	play,
-	settings
+	settings,
+	quit,
 };
 
 class Scene_Menu;
-//Handles the various mechanics happening on the Main Menu
+
+//Handles the various mechanics happening on the Main Menu. Could alternatively be specified in the Scene itself
 class MainMenuHandler
 {
 public:

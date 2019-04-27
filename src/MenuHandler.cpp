@@ -3,6 +3,9 @@
 #include "Handler.h"
 #include "Renderer.h"
 
+#include <SFML/Audio.hpp>
+
+
 using namespace sf;
 //Class MenuButton
 
@@ -52,13 +55,13 @@ void MenuButton::offHover()
 	this->text.setColor(sf::Color::Black);
 }
 
-//Customizable: What happens when Hovering off buttons
+//Customizable: What happens when Clicking on buttons
 void MenuButton::onClick()
 {
 	
 	if (label == menuItems::play)
 	{
-		printf("Play");
+		printf("Play\n");
 		Scene_Menu::instance().unload();
 		Scene *scene = &Scene_Transition::instance(&Scene_Arena::instance());
 		//Scene * scene = &Scene_Arena::instance();
@@ -68,12 +71,21 @@ void MenuButton::onClick()
 
 	if (label == menuItems::settings)
 	{
-		printf("Settings");
-		Scene * scene = &scene_CharSelect;
+		printf("Scene Unavailable\n");
+
+		Scene_Menu::instance().unload();
+		Scene *scene = &Scene_Transition::instance(&Scene_Menu::instance());
 		Game::getManager().loadScene(scene);
+	
 	}
-	
-	
+
+	if (label == menuItems::quit)
+	{
+		printf("Quit");
+		Scene_Menu::instance().unload();
+		Renderer::instance()->close();
+
+	}
 	
 }
 

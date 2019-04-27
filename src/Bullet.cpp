@@ -9,7 +9,7 @@ using namespace sf;
 
 Bullet::Bullet() {
 	velocity = 1.1;
-	texture.loadFromFile(RES_DIRECTORY + "Fireball.jpg");
+	texture.loadFromFile(RES_DIRECTORY + "Fireball.png");
 	sprite.setTexture(texture);
 }
 

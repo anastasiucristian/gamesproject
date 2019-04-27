@@ -6,6 +6,21 @@
 #include <vector>
 #include <map>
 
+/*
+Scene.h
+
+Scene: Defines a set of sprites to be rendered (Buttons, Windows, etc.)
+
+Contents:
+1. Scene
+2. Scene_Menu
+3. Scene_CharacterSelect (Incomplete)
+4. Scene_Arena
+5. Scene_Transition
+
+Author: Mark Pereira . Last Modified: 27/04/19 13:23
+*/
+
 const sf::Vector2f SCROLLING = {-0.1f,0.0f};
 
 class Scene {

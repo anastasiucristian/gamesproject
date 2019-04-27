@@ -12,16 +12,9 @@ const int gameHeight = 1080;
 
 
 
-
+//Set startup scene to Main Menu
 Scene * scene = &Scene_Menu::instance();
-
-//Scene * scene = &Scene_Transition::instance();
-
-
-
 Game &sceneManager = Game::getManager();
-
-
 
 
 void Load(){
@@ -53,7 +46,7 @@ void Render(){
 int main(){
 	
   static RenderWindow window(VideoMode(gameWidth , gameHeight), "Squabble");
-  //sf::RenderWindow *w = new sf::RenderWindow(VideoMode(gameWidth, gameHeight), "Danger", sf::Style::Fullscreen);
+  //sf::RenderWindow *w = new sf::RenderWindow(VideoMode(gameWidth, gameHeight), "Squabble", sf::Style::Fullscreen);
   Renderer::initialise(window);
   Load();
   

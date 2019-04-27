@@ -8,6 +8,13 @@
 using namespace std;
 using namespace sf;
 
+/*
+The Player Function Declarations:
+
+Author: Cristian Anastasiu 
+*/
+
+
 Player::Player() {
 	jumpForce = -2;
 	velocity = 1.1;

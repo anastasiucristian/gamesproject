@@ -11,6 +11,14 @@
 #include <time.h>
 #include <SFML/Audio.hpp>
 #include <math.h>
+
+//Scene_Arena
+
+/*Contains most significant logic for the platformer game
+Author: Cristian Anastasiu
+*/
+
+
 //scene for the actual game but also lever builder
 
 Level builder;//level builder
@@ -30,14 +38,12 @@ Scene_Arena::Scene_Arena() : Scene()
 }
 
 //=========Section Author: Mark Pereira==========
-
 enum y_direction
 {
 	up,
 	down,
 	stationary
 };
-
 
 int get_y_direction(Player player)
 {
@@ -108,7 +114,8 @@ sf::Text *newText = new sf::Text();
 void Scene_Arena::Render()
 {
 
-
+	
+	
 	//rendering level only, so it only has to be built once and redisplay a picture of it on each iteration
 	//draw background and level
 	builder.render();
@@ -124,16 +131,21 @@ void Scene_Arena::Render()
 	textureSnapshot.loadFromImage(imgSnapshot);//loading the snapshot in the texture variable
 	drawableLevel.setTexture(textureSnapshot);//setting the drawable as the loaded texture	
 
+	
 	while (Renderer::instance()->isOpen())
 	{
+		
 		Renderer::instance()->clear();//clear the window
 		Renderer::instance()->draw(drawableLevel);//draw level
 
+	
 		sf::Event event;//event mostly used for key releasing
 		while (Renderer::instance()->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				Renderer::instance()->close();
+
+			
 			if (event.type == sf::Event::KeyReleased)
 			{
 				//when w is released the player can't jump anymore
@@ -154,6 +166,10 @@ void Scene_Arena::Render()
 				{
 					player2.stopRunning();
 				}
+				
+
+
+				
 			}
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::Space) {//player1 shooting button
@@ -212,15 +228,17 @@ void Scene_Arena::Render()
 		if (jumpedOn(player1, player2))
 		{
 			player1.stun();
+			
 		}
 
 		if (jumpedOn(player2, player1))
 		{
 			player2.stun();
+		
 		}
 
 
-
+		
 		//if one of the player gets mariod while stunned reset levels(same as when falling)
 		cornerCheckerOld1 = cornerChecker1;
 		cornerChecker1 = player1.getPos();
@@ -264,7 +282,7 @@ void Scene_Arena::Render()
 				player2.addScore();
 			}
 		}
-
+		
 		//if bullets(fireballs) hit the edges, dispaly them under the screen(don't show them)
 		if (b1.getPosition().x < 0 || b1.getPosition().x > 1920) {
 			player1.canShoot();

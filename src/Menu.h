@@ -4,6 +4,19 @@
 #include <SFML/Graphics.hpp>
 #include <String.h>
 
+/*
+Menu.h
+
+Contains structures that are part of a Menu Scene (Buttons, Windows, etc.)
+
+Contents:
+1. MenuButton
+2. MenuWindow
+
+Author: Mark Pereira . Last Modified: 27/04/19 12:00
+*/
+
+
 // Set the Menu Options here
 const sf::Vector2f  MENU_POSITION = { 400,150 };
 const float			MENU_INTERVAL = 30;
@@ -31,6 +44,7 @@ public:
 
 
 private:
+	//Menu buttons react to interactions
 	void onHover() override;
 	void offHover() override;
 	void onClick() override;
@@ -40,6 +54,7 @@ private:
 
 };
 
+//Incomplete Tooltip Window
 class MenuWindow
 {
 public:
